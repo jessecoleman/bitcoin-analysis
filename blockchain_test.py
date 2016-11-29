@@ -2,8 +2,7 @@ import time
 import datetime
 from blockchain import blockexplorer
 
-curr_block_height = 305215
-#277197
+curr_block_height = 277197
 
 def get_transactions(height):
     block = blockexplorer.get_block_height(height)[0]
@@ -12,11 +11,13 @@ def get_transactions(height):
     date_transactions = []
     while curr_date == new_date:
         height = height + 1
-        block = blockexplorer.get_block_height(height)[0]
-        new_date = time.strftime('%Y-%m-%d', time.localtime(block.received_time))
-        date_transactions = date_transactions + block.transactions
+        for block in blockexplorer.get_block_height(height):
+            new_date = time.strftime('%Y-%m-%d-%H-%m-%s', time.localtime(block.received_time))
+            print(block.received_time)
+            #dt = "%d-%02d-%02d-%02d-%02d-%02d"%(block_datetime.year, block_datetime.month, block_datetime.day, block_datetime.hour, block_datetime.minute, block_datetime.second)
+            date_transactions = date_transactions + block.transactions
     #print(len(date_transactions))
-
+    return
     adjacent = {}
     for trns in date_transactions:
         for inpt in trns.inputs:
@@ -174,7 +175,8 @@ def generate_edges():
             break
            
 
-generate_edges()
+#generate_edges()
+get_transactions(curr_block_height)
 
 def do_shit():
     i = 277190
