@@ -9,12 +9,14 @@ def get_transactions(height):
     curr_date = time.strftime('%Y-%m-%d', time.localtime(block.received_time))
     new_date = curr_date
     date_transactions = []
-    while curr_date == new_date:
+    #while curr_date == new_date:
+    while True:
         height = height + 1
         for block in blockexplorer.get_block_height(height):
             new_date = time.strftime('%Y-%m-%d-%H-%m-%s', time.localtime(block.received_time))
             print(block.received_time)
             #dt = "%d-%02d-%02d-%02d-%02d-%02d"%(block_datetime.year, block_datetime.month, block_datetime.day, block_datetime.hour, block_datetime.minute, block_datetime.second)
+            #field specification: ["in", transaction_key, referent_transaction_key, index, public_key, date]   
             date_transactions = date_transactions + block.transactions
     #print(len(date_transactions))
     return
