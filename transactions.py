@@ -24,7 +24,7 @@ def get_transactions(height, end):
                 date_transactions = date_transactions + block.transactions
         except:
             time.sleep(30)
-            height = height - 1
+            #height = height - 1
 
 
     input_nodes = nx.Graph()   
