@@ -50,9 +50,8 @@ for user in users.keys():
         back_users[hsh] = user
 
 
-
+user_graph = nx.MultiDiGraph()
 with open('transactions_277198.csv', 'r') as network:
-    user_graph = nx.MultiDiGraph()
     curr_tx = ''
     # sending user for current transaction
     curr_in_user = ''
@@ -80,7 +79,7 @@ with open('transactions_277198.csv', 'r') as network:
             except:
                 curr_user = args[2]
             if args[1] == ' out':
-                user_graph.add_edge(curr_in_user, curr_user, args[5])    
+                user_graph.add_edge(curr_in_user, curr_user, weight=args[5])    
         else:
             curr_tx = new_tx
             #in_user_flag = True
@@ -89,9 +88,9 @@ with open('transactions_277198.csv', 'r') as network:
             except:
                 curr_in_user = args[2]
 
-
+pagerank = nx.pagerank_numpy(user_graph, alpha=0.85, weight='weight')
             
-
+print(pagerank)
 
 #print(graphs[0])
 #print(len(graphs))
