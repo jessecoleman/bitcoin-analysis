@@ -68,8 +68,9 @@ with open("dates_blocks.txt") as f:
     for line in f.readlines():
         
         row = re.split(',|\\n', line)
-        if index > 6:
+        if first > 305216:
             print(first)
+            first = first + 1
             get_transactions(first, int(row[1]))
         first = int(row[1])
         index = index + 1
