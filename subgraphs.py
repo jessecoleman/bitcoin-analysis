@@ -171,11 +171,11 @@ for path in paths:
                     print(str(i) + ' = ' + str(j))
                     print(len(set(users[i]).intersection(set(prev_users[j]))))
                     # update dictionary elements
-                    old_scores = user_traj.get(j, False)
-                    if old_scores:
+                    scores = user_traj.get(j, [])
+                    if len(scores) > 0:
                         del user_traj[j]
-                        old_scores.append((date, results.get_value(i, 0)))
-                        user_traj[i] = old_scores
+                    scores.append((date, results.get_value(i, 0)))
+                    user_traj[i] = scores
                     break
     else:
         for row in results.itertuples():
@@ -186,4 +186,5 @@ for path in paths:
 
 dates.close()
 print(user_traj)
+
 
