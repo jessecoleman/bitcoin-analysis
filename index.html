@@ -50,7 +50,7 @@ d3.tsv("user_trajectories.tsv", type, function(error, data) {
   x.domain(d3.extent(data, function(d) { return d.date; }));
 
   y.domain([
-    d3.min(cities, function(c) { return -2.3; }),//d3.min(c.values, function(d) { return d.temperature; }); }),
+    d3.min(cities, function(c) { return -2.5; }),//d3.min(c.values, function(d) { return d.temperature; }); }),
     d3.max(cities, function(c) { return d3.max(c.values, function(d) { return d.temperature; }); })
   ]);
 
@@ -71,7 +71,7 @@ d3.tsv("user_trajectories.tsv", type, function(error, data) {
       .attr("y", 6)
       .attr("dy", "0.71em")
       .attr("fill", "#000")
-      .text("Temperature, ºF");
+      .text("log10 in-degree centrality");
 
   var city = g.selectAll(".city")
     .data(cities)
