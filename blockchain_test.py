@@ -5,7 +5,7 @@ from blockchain import blockexplorer
 from dateutil.relativedelta import relativedelta
 from urllib.error import HTTPError
 
-curr_block_height = 312378
+curr_block_height = 277198
 
 def get_transactions(height):
     fail = True
@@ -36,6 +36,7 @@ def find_date_height(date, curr_block_height):
     unix_time = int(time.mktime(date.timetuple()))
     block_time = get_time(curr_block_height)
     while unix_time > block_time:
+        print(curr_block_height)
         curr_block_height = curr_block_height + 500
         block_time = get_time(curr_block_height)
     while unix_time < block_time:
@@ -72,7 +73,7 @@ def print_block(block):
 
 def find_start_blocks():
     dates = []
-    date = datetime.datetime.strptime('2014-10-20', '%Y-%m-%d')
+    date = datetime.datetime.strptime('2013-12-27', '%Y-%m-%d')
     end_date = datetime.datetime.strptime('2014-11-6', '%Y-%m-%d')
     while date < end_date:
         curr = find_date_height(date, curr_block_height)
@@ -81,7 +82,7 @@ def find_start_blocks():
         date = date + datetime.timedelta(days=7)
         dates.append(row)
 
-    with open('dates_alt.txt', 'w') as date_out:
-        date_out.write('\n'.join(row))
+    with open('dates.txt', 'w') as date_out:
+        date_out.write('\n'.join(dates))
 
 find_start_blocks()

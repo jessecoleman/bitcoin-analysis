@@ -27,7 +27,7 @@ def get_transactions(height, end, date):
 
 
     input_nodes = nx.Graph()   
-    print(date_transactions[0:5])
+    #print(date_transactions[0:5])
     lines = []
     lines.append('tx_hash,in_out,address,time,value')
     for trns in date_transactions:
@@ -40,7 +40,7 @@ def get_transactions(height, end, date):
                 input_nodes.add_edges_from([(inpt.address, out_addr) for out_addr in curr_nodes])
                 curr_nodes.append(inpt.address)
                 #print('input' + str(inpt.address))
-                row = str(trns.hash) + ', ' + 'in, ' + str(inpt.address) + ', ' + str(trns.time) + ', ' + str(inpt.value)
+                row = str(trns.hash) + ',' + 'in,' + str(inpt.address) + ',' + str(trns.time) + ',' + str(inpt.value)
                 #print(row)
                 lines.append(row)
             except AttributeError:
@@ -48,7 +48,7 @@ def get_transactions(height, end, date):
             
         for outpt in trns.outputs:
             try:
-                row = str(trns.hash) + ', ' + 'out, ' + str(outpt.address) + ', ' + str(trns.time) + ', ' + str(outpt.value)
+                row = str(trns.hash) + ',' + 'out,' + str(outpt.address) + ',' + str(trns.time) + ',' + str(outpt.value)
                 lines.append(row)
             # if any attributes aren't found, as is the case with coinbase transactions, discard row
             except AttributeError:
@@ -68,6 +68,7 @@ with open("dates.txt") as f:
             print(first)
             first = first + 1
             get_transactions(first, int(row[1]), date)
+            date = row[2]
         first = int(row[1])
         index = index + 1
     
