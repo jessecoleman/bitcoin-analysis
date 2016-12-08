@@ -53,6 +53,7 @@ def get_transactions(height, end, date):
             # if any attributes aren't found, as is the case with coinbase transactions, discard row
             except AttributeError:
                 pass
+    print(date)
     with open('transactions_' + str(date) + '.csv', 'w') as file_out:
         file_out.write('\n'.join(lines))
 
@@ -64,11 +65,11 @@ with open("dates.txt") as f:
     for line in f.readlines():
         row = re.split(',|\\n', line)
         #starting block height parameter
-        if first > 277197:
+        if index > 1:
             print(first)
             first = first + 1
             get_transactions(first, int(row[1]), date)
-            date = row[2]
+        date = row[0]
         first = int(row[1])
         index = index + 1
     
