@@ -22,8 +22,8 @@ def get_transactions(height, end, date):
                 # keep list of all transactions 
                 date_transactions = date_transactions + block.transactions
         except:
-            time.sleep(30)
-            #height = height - 1
+            time.sleep(10)
+            height = height - 1
 
 
     input_nodes = nx.Graph()   
@@ -53,7 +53,7 @@ def get_transactions(height, end, date):
             # if any attributes aren't found, as is the case with coinbase transactions, discard row
             except AttributeError:
                 pass
-    print(date)
+    print(date + '****COMPLETE****')
     with open('transactions_' + str(date) + '.csv', 'w') as file_out:
         file_out.write('\n'.join(lines))
 
@@ -65,7 +65,7 @@ with open("dates.txt") as f:
     for line in f.readlines():
         row = re.split(',|\\n', line)
         #starting block height parameter
-        if index > 1:
+        if index > 2:
             print(first)
             first = first + 1
             get_transactions(first, int(row[1]), date)
